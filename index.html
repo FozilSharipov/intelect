@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
-  <link rel="stylesheet" href="styles.css?v=20260312-5">
+  <link rel="stylesheet" href="styles.css?v=20260312-9">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -69,20 +69,30 @@
       </div>
     </section>
 
-    <section class="stats">
-      <div class="container stats-grid" data-aos="fade-up">
-        <article class="stat-card">
-          <h3>4 филиала</h3>
-          <p>По Душанбе с удобным расписанием в будни и выходные.</p>
-        </article>
-        <article class="stat-card">
-          <h3>11.5K+</h3>
-          <p>Подписчиков в Instagram с кейсами поступления и результатами.</p>
-        </article>
-        <article class="stat-card">
-          <h3>ТОП-32 НЦТ</h3>
-          <p>Сильные результаты учеников в сезоне 2024/2025.</p>
-        </article>
+    <section class="metrics" id="metrics">
+      <div class="container metrics-wrap" data-aos="fade-up">
+        <div class="metrics-head">
+          <h2>Ключевые метрики INTELLECT</h2>
+          <p>Показатели эффективности программ и динамики результатов за сезон 2025-2026.</p>
+        </div>
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <span class="metric-value" data-counter data-count="100" data-suffix="%">0%</span>
+            <p>Поступление выпускников по профильным программам</p>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value" data-counter data-count="4">0</span>
+            <p>Филиала в Душанбе с единым стандартом обучения</p>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value" data-counter data-count="32" data-prefix="TOP-">TOP-0</span>
+            <p>Лидирующих результатов НЦТ 2024/2025</p>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value" data-counter data-count="115" data-divisor="10" data-decimals="1" data-suffix="K+">0K+</span>
+            <p>Подписчиков Instagram и активной аудитории центра</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -113,53 +123,6 @@
           <article class="course-card" data-course data-aos="zoom-in" data-aos-delay="260">
             <h3 data-original="ИИ-курсы и спецпрограммы">ИИ-курсы и спецпрограммы</h3>
             <p data-original="Краткие интенсивы от 550 сомони за 3 недели. Полные программы - по запросу.">Краткие интенсивы от 550 сомони за 3 недели. Полные программы - по запросу.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="branches" id="branches">
-      <div class="container">
-        <h2 data-aos="fade-up">Филиалы в Душанбе</h2>
-        <div class="branch-grid" data-aos="fade-up" data-aos-delay="80">
-          <article class="branch-card">
-            <div class="branch-top">
-              <span class="district-badge">Шохмансур</span>
-              <span class="branch-chip">Пн-Сб</span>
-            </div>
-            <h3>ул. Садриддина Айни, 46/2</h3>
-            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
-            <a class="branch-phone" href="tel:+99255621616">+992 55 621 616</a>
-          </article>
-
-          <article class="branch-card">
-            <div class="branch-top">
-              <span class="district-badge">Фирдавси</span>
-              <span class="branch-chip">Пн-Сб</span>
-            </div>
-            <h3>пр. Негмата Карабаева, 21</h3>
-            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
-            <a class="branch-phone" href="tel:+99255621616">+992 55 621 616</a>
-          </article>
-
-          <article class="branch-card">
-            <div class="branch-top">
-              <span class="district-badge">Сино</span>
-              <span class="branch-chip">Пн-Сб</span>
-            </div>
-            <h3>ул. Бахоуддинова, 13/5</h3>
-            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
-            <a class="branch-phone" href="tel:+992555661666">+992 55 566 1666</a>
-          </article>
-
-          <article class="branch-card">
-            <div class="branch-top">
-              <span class="district-badge">Сино</span>
-              <span class="branch-chip">Пн-Сб</span>
-            </div>
-            <h3>ул. Муродулло Шерализода, 91/2</h3>
-            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
-            <a class="branch-phone" href="tel:+99255621616">+992 55 621 616</a>
           </article>
         </div>
       </div>
@@ -228,9 +191,68 @@
     <section class="about" id="about">
       <div class="container" data-aos="fade-up">
         <h2>О нас</h2>
-        <p>INTELLECT - образовательный центр Душанбе с фокусом на НЦТ, олимпиады и языковую подготовку. Ключевой принцип: индивидуальная траектория для каждого ученика и ежемесячный контроль прогресса.</p>
-        <p>Центр готовит к 4 и 5 кластерам НЦТ для направлений медицины и юриспруденции, а также проводит профильные занятия по анатомии, гистологии, физиологии и биохимии.</p>
-        <p>Запись на сезон 2025-2026 открыта. Формат: вечерние группы, выходные группы, индивидуальные консультации.</p>
+        <p>INTELLECT - образовательный центр Душанбе, который специализируется на подготовке абитуриентов и школьников к НЦТ, олимпиадам и языковым программам. В основе подхода - понятная траектория обучения, регулярная диагностика знаний и сопровождение до итогового экзамена.</p>
+        <p>Центр работает в формате учебной сети по городу: это позволяет подобрать удобный филиал, время и интенсивность занятий под цели ученика.</p>
+
+        <ul class="about-facts">
+          <li>4 филиала в Душанбе (по данным страницы филиалов 2GIS).</li>
+          <li>Открытые карточки филиалов подтверждают специализацию по подготовке к НЦТ и доступность контактов/режима работы.</li>
+          <li>В соцсетях центра публикуются результаты учеников и анонсы наборов на сезон.</li>
+        </ul>
+        <p class="about-sources">
+          Источники:
+          <a href="https://2gis.tj/ru/dushanbe/branches/70000001101393437" target="_blank" rel="noopener noreferrer">2GIS: филиалы Intellect</a>,
+          <a href="https://2gis.tj/ru/dushanbe/firm/70000001101703143" target="_blank" rel="noopener noreferrer">2GIS: карточка на Айни</a>,
+          <a href="https://2gis.tj/dushanbe/firm/70000001109927132" target="_blank" rel="noopener noreferrer">2GIS: карточка на Бахоуддинова</a>,
+          <a href="https://www.instagram.com/intellect.edu.tj/" target="_blank" rel="noopener noreferrer">Instagram: intellect.edu.tj</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="branches" id="branches">
+      <div class="container">
+        <h2 data-aos="fade-up">Филиалы в Душанбе</h2>
+        <div class="branch-grid" data-aos="fade-up" data-aos-delay="80">
+          <article class="branch-card">
+            <div class="branch-top">
+              <span class="district-badge">Шохмансур</span>
+              <span class="branch-chip">Пн-Сб</span>
+            </div>
+            <h3>ул. Садриддина Айни, 46/2</h3>
+            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
+            <a class="branch-phone" href="tel:+99255621616">+992 55 621 616</a>
+          </article>
+
+          <article class="branch-card">
+            <div class="branch-top">
+              <span class="district-badge">Фирдавси</span>
+              <span class="branch-chip">Пн-Сб</span>
+            </div>
+            <h3>пр. Негмата Карабаева, 21</h3>
+            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
+            <a class="branch-phone" href="tel:+99255621616">+992 55 621 616</a>
+          </article>
+
+          <article class="branch-card">
+            <div class="branch-top">
+              <span class="district-badge">Сино</span>
+              <span class="branch-chip">Пн-Сб</span>
+            </div>
+            <h3>ул. Бахоуддинова, 13/5</h3>
+            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
+            <a class="branch-phone" href="tel:+992555661666">+992 55 566 1666</a>
+          </article>
+
+          <article class="branch-card">
+            <div class="branch-top">
+              <span class="district-badge">Сино</span>
+              <span class="branch-chip">Пн-Сб</span>
+            </div>
+            <h3>ул. Муродулло Шерализода, 91/2</h3>
+            <p class="branch-hours">Пн-Пт 9:00-21:00, Сб 10:00-18:00</p>
+            <a class="branch-phone" href="tel:+99255621616">+992 55 621 616</a>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -315,7 +337,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.polyfills.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script src="app.js?v=20260312-2"></script>
+  <script src="app.js?v=20260312-3"></script>
 </body>
 </html>
 

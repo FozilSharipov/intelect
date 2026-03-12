@@ -11,6 +11,7 @@
   const formStatus = document.getElementById('formStatus');
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');
+  const metricCounters = Array.from(document.querySelectorAll('[data-counter]'));
 
   let currentSlide = 0;
   let sliderTimer = null;
@@ -125,6 +126,52 @@
     });
   }
 
+  function animateCounter(el) {
+    const target = Number(el.dataset.count || 0);
+    const divisor = Number(el.dataset.divisor || 1);
+    const decimals = Number(el.dataset.decimals || 0);
+    const prefix = String(el.dataset.prefix || '');
+    const suffix = String(el.dataset.suffix || '');
+    const duration = 1300;
+    const startTime = performance.now();
+
+    function frame(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+      const scaled = current / divisor;
+      const value = scaled.toFixed(decimals);
+      el.textContent = prefix + value + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  function setupMetrics() {
+    if (metricCounters.length === 0) {
+      return;
+    }
+
+    const observed = new WeakSet();
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !observed.has(entry.target)) {
+          observed.add(entry.target);
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    metricCounters.forEach(function (item) {
+      observer.observe(item);
+    });
+  }
+
   function init() {
     if (slides.length > 0) {
       showSlide(0);
@@ -159,6 +206,7 @@
     searchInput.addEventListener('input', filterCourses);
     contactForm.addEventListener('submit', handleFormSubmit);
     setupMenu();
+    setupMetrics();
   }
 
   init();
