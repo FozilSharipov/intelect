@@ -92,10 +92,11 @@
 
     const formData = new FormData(contactForm);
     const name = String(formData.get('name') || '').trim();
+    const program = String(formData.get('program') || '').trim();
     const email = String(formData.get('email') || '').trim();
     const message = String(formData.get('message') || '').trim();
 
-    if (!name || !email || !message) {
+    if (!name || !program || !email || !message) {
       formStatus.textContent = 'Заполните все поля формы.';
       return;
     }
@@ -106,7 +107,7 @@
       return;
     }
 
-    formStatus.textContent = 'Сообщение успешно отправлено. Мы свяжемся с вами в ближайшее время.';
+    formStatus.textContent = 'Заявка по направлению успешно отправлена. Мы свяжемся с вами в ближайшее время.';
     contactForm.reset();
   }
 
