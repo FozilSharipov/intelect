@@ -1,195 +1,164 @@
-// Alpine.js компонент приложения
-function app() {
-    // Проверяем сохранённый язык
-    const savedLang = localStorage.getItem('lang');
-    const defaultLang = savedLang || 'ru';
-    // установим атрибут lang для html
-    document.documentElement.lang = defaultLang;
-    return {
-        currentLanguage: defaultLang,
-        translations: {
-            ru: {
-                nav: { courses: 'Наши курсы', about: 'О нас', reviews: 'Отзывы', contact: 'Контакты' },
-                hero: { title: 'Добро пожаловать в INTELLECT', desc: 'Современное образование в области IT и программирования для всех возрастов', cta: 'Записаться на курс', modalTitle: 'Записаться на курс' },
-                courses: {
-                    heading: 'Наши курсы',
-                    cluster4: { title: '4 кластер', desc: 'Учебный курс охватывает дисциплины гуманитарного цикла для углубленной подготовки и сдачи ежегодных экзаменов.', duration: 'Продолжительность: 1 год', price: 'Стоимость: 1100 сомони в месяц', instructor: 'Инструкторы: различные специалисты', skills: 'Навыки: подготовка к экзаменам по истории, праву, литературе, таджикскому и русскому языкам.' },
-                    cluster5: { title: '5 кластер (Медицина)', desc: 'Курс включает в себя углубленное изучение медицинских дисциплин с упором на анатомию, физиологию, гистологию и биохимию.', duration: 'Продолжительность: 1 год', price: 'Стоимость: 1100 сомони в месяц', instructor: 'Инструкторы: специалисты в области медицины', skills: 'Навыки: основы химии, биологии и физики с медицинской направленностью.' },
-                    olympiad: { title: 'Подготовка к Олимпиаде', desc: 'Курс направлен на подготовку к олимпиадам по естественным наукам.', duration: 'Продолжительность: по подготовке', price: 'Стоимость: 1100 сомони в месяц', instructor: 'Преподаватели: олимпийские тренеры и эксперты', skills: 'Навыки: подготовка по химии, биологии и физике.' },
-                    meddeep: { title: 'Медицина углубленно', desc: 'Этот курс ориентирован на углубленное изучение медицины, предназначен для студентов, желающих поступить в медицинские университеты.', duration: 'Продолжительность: 1 год', price: 'Стоимость: 1100 сомони в месяц', instructor: 'Инструкторы: специалисты-медики', skills: 'Навыки: углубленное изучение анатомии и физиологии.' },
-                    english: { title: 'Английский язык', desc: 'Курс английского языка, охватывающий все аспекты языка от базового до продвинутого уровня.', duration: 'Продолжительность: 6 месяцев', price: 'Стоимость: 1100 сомони в месяц', instructor: 'Инструктор: Анна Петрова', skills: 'Навыки: от уровня Beginner до Advanced.' }
-                },
-                features: { teach: 'Профессиональные преподаватели', teachDesc: 'Опытные специалисты из IT-индустрии.', methods: 'Современные методики', methodsDesc: 'Интерактивные уроки и практические задания.', prices: 'Доступные цены', pricesDesc: 'Оптимальные тарифы для школьников и студентов.', support: 'Поддержка 24/7', supportDesc: 'Всегда на связи для вопросов и помощи.' },
-                about: { heading: 'О нас', teachers: 'Наши преподаватели', achievements: 'Наши достижения', students: 'Наши ученики', address: 'Наш адрес', addressText: 'г. Душанбе, ул. Учебная, 21' },
-                contact: { heading: 'Свяжитесь с нами', addressText: 'Адрес: ул. Главная, 123, Душанбе', form: { name: 'Имя', phone: 'Телефон', email: 'Email', message: 'Сообщение', submit: 'Отправить' } }
-            },
-            tg: {
-                nav: { courses: 'Курсҳои мо', about: 'Дар бораи мо', reviews: 'Назариҳо', contact: 'Тамос' },
-                hero: { title: 'Хуш омадед ба INTELLECT', desc: 'Таҳсилоти муосир дар соҳаи IT ва барномасозӣ барои тамоми синну солҳо', cta: 'Барои курс сабти ном шудан' },
-                courses: {
-                    heading: 'Курсҳои мо',
-                    cluster4: { title: '4 кластер', desc: 'Курси таҳсилӣ фанҳои гуманитариро барои омода шудани ҳамаҷониба ва супурдани имтиҳонҳои солона дар бар мегирад.', duration: 'Мӯҳлат: 1 сол', price: 'Нарх: 1100 сомонӣ дар як моҳ', instructor: 'Муаллимон: мутахассисони гуногун', skills: 'Маҳоратҳо: омодагӣ ба имтиҳонҳо дар таърих, ҳуқуқ, адабиёт, забони тоҷикӣ ва русӣ.' },
-                    cluster5: { title: '5 кластер (Тиб)', desc: 'Курс таҳқиқи мукаммали фанҳои тиббиро бо таъкид ба анатомия, физиология, гистология ва биохимия дар бар мегирад.', duration: 'Мӯҳлат: 1 сол', price: 'Нарх: 1100 сомонӣ дар як моҳ', instructor: 'Муаллимон: коршиносон дар соҳаи тиб', skills: 'Маҳоратҳо: асосҳои химия, биология ва физика бо равиши тиббӣ.' },
-                    olympiad: { title: 'Омодагӣ ба Олимпиада', desc: 'Курс ба омодагӣ ба олимпиадаҳо дар фанҳои табиӣ равона шудааст.', duration: 'Мӯҳлат: мувофиқи омодагӣ', price: 'Нарх: 1100 сомонӣ дар як моҳ', instructor: 'Муаллимон: тренерҳо ва коршиносони олимпиада', skills: 'Маҳоратҳо: омодагӣ ба олимпиада дар химия, биология ва физика.' },
-                    meddeep: { title: 'Тиб бо таҳқиқи амиқ', desc: 'Ин курс ба омӯхтани амиқи тибб равона шудааст ва барои донишҷӯёнест, ки мехоҳанд ба донишгоҳҳои тиббӣ дохил шаванд.', duration: 'Мӯҳлат: 1 сол', price: 'Нарх: 1100 сомонӣ дар як моҳ', instructor: 'Муаллимон: мутахассисони тиббӣ', skills: 'Маҳоратҳо: омӯхтани амиқи анатомия ва физиология.' },
-                    english: { title: 'Забони англисӣ', desc: 'Курс забони англисиро дар тамоми сатҳҳо аз ибтидоӣ то пешрафта фаро мегирад.', duration: 'Мӯҳлат: 6 моҳ', price: 'Нарх: 1100 сомонӣ дар як моҳ', instructor: 'Муаллим: Анна Петрова', skills: 'Маҳоратҳо: аз сатҳи Beginner то Advanced.' }
-                },
-                features: { teach: 'Муаллимони касбӣ', methods: 'Усулҳои муосир', prices: 'Нархҳои дастрас', support: 'Дастгирии 24/7' },
-                about: { heading: 'Дар бораи мо', teachers: 'Муаллимони мо', achievements: 'Дастовардҳои мо', students: 'Шогирдони мо', address: 'Суроғаи мо' },
-                contact: { heading: 'Бо мо тамос гиред' }
-            }
-        },
-        form: {
-            name: '',
-            phone: '',
-            email: '',
-            message: ''
-        },
+﻿(function () {
+  'use strict';
 
-        
-        // Переключение языка
-        switchLanguage(lang) {
-            this.currentLanguage = lang;
-            // update html lang attribute for accessibility/SEO
-            document.documentElement.lang = lang;
-            // save preference
-            localStorage.setItem('lang', lang);
-            console.log(`Language switched to: ${lang}`);
-        },
-        // Полезный метод для доступа к переводам по ключу
-        t(path) {
-            const parts = path.split('.');
-            let obj = this.translations[this.currentLanguage];
-            for (let part of parts) {
-                if (!obj) return '';
-                obj = obj[part];
-            }
-            return obj || '';
-        },
-        
-        // Открыть модальное окно
-        openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('hidden');
-            }
-        },
-        
-        // Закрыть модальное окно
-        closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-        },
-        
-        // Валидация телефона
-        validatePhone() {
-            // Удаляем все символы кроме цифр
-            this.form.phone = this.form.phone.replace(/\D/g, '');
-        },
-        
-        // Отправка формы
-        submitForm() {
-            if (this.validateFormData()) {
-                console.log('Form submitted:', this.form);
-                alert('Спасибо! Мы скоро свяжемся с вами.');
-                this.resetForm();
-                // Закрыть все открытые модальные окна
-                document.querySelectorAll('[id$="Modal"]').forEach(modal => {
-                    modal.classList.add('hidden');
-                });
-            }
-        },
-        
-        // Валидация данных формы
-        validateFormData() {
-            if (!this.form.name.trim()) {
-                alert('Пожалуйста, введите имя');
-                return false;
-            }
-            if (!this.form.phone.trim()) {
-                alert('Пожалуйста, введите телефон');
-                return false;
-            }
-            if (!this.form.email.trim()) {
-                alert('Пожалуйста, введите email');
-                return false;
-            }
-            return true;
-        },
-        
-        // Очистить форму
-        resetForm() {
-            this.form = {
-                name: '',
-                phone: '',
-                email: '',
-                message: ''
-            };
-        }
-    };
-}
+  const slides = Array.from(document.querySelectorAll('[data-slide]'));
+  const prevButton = document.getElementById('prevSlide');
+  const nextButton = document.getElementById('nextSlide');
+  const searchInput = document.getElementById('courseSearch');
+  const searchMeta = document.getElementById('searchMeta');
+  const courseCards = Array.from(document.querySelectorAll('[data-course]'));
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
 
-// Инициализация Swiper карусели для отзывов и слайдера геро
-    document.addEventListener('DOMContentLoaded', function() {
-        // Инициализация карусели отзывов
-        new Swiper('.reviewSwiper', {
-            loop: true,
-            pagination: {
-                el: '.reviewSwiper .swiper-pagination',
-            clickable: true,
-        },
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-            },
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-            },
-        }
+  let currentSlide = 0;
+  let sliderTimer = null;
+
+  function showSlide(index) {
+    slides.forEach(function (slide) {
+      slide.classList.remove('active');
     });
-    
-    // Анимация при загрузке страницы
-    gsap.from('h1', { duration: 0.8, y: 30, opacity: 0, ease: 'power2.out' });
-    gsap.from('h1 ~ p', { duration: 0.8, y: 30, opacity: 0, delay: 0.2, ease: 'power2.out' });
-    gsap.from('button', { duration: 0.8, y: 30, opacity: 0, delay: 0.4, ease: 'power2.out' });
-    
-    // Анимация карточек курсов
-    gsap.utils.toArray('.bg-white.rounded-2xl').forEach((card, index) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: 'top bottom',
-                toggleActions: 'play none none reverse'
-            },
-            duration: 0.8,
-            y: 50,
-            opacity: 0,
-            delay: index * 0.1,
-            ease: 'power2.out'
-        });
+
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+
+  function resetSliderTimer() {
+    if (sliderTimer) {
+      clearInterval(sliderTimer);
+    }
+
+    sliderTimer = setInterval(nextSlide, 5000);
+  }
+
+  function escapeRegExp(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightText(el, query) {
+    const original = el.dataset.original || el.textContent;
+    if (!query) {
+      el.innerHTML = original;
+      return;
+    }
+
+    const safeQuery = escapeRegExp(query);
+    const regex = new RegExp('(' + safeQuery + ')', 'gi');
+    el.innerHTML = original.replace(regex, '<mark>$1</mark>');
+  }
+
+  function filterCourses() {
+    const query = searchInput.value.trim().toLowerCase();
+    let matched = 0;
+
+    courseCards.forEach(function (card) {
+      const heading = card.querySelector('h3');
+      const text = card.querySelector('p');
+      const raw = ((heading.dataset.original || '') + ' ' + (text.dataset.original || '')).toLowerCase();
+
+      highlightText(heading, query);
+      highlightText(text, query);
+
+      const isMatch = query === '' || raw.indexOf(query) !== -1;
+      card.style.display = isMatch ? '' : 'none';
+      card.classList.toggle('match', query !== '' && isMatch);
+
+      if (isMatch) {
+        matched += 1;
+      }
     });
-    
-    // Анимация панели преимуществ
-    gsap.utils.toArray('#features .flex').forEach((item, idx) => {
-        gsap.from(item, {
-            scrollTrigger: {
-                trigger: item,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-            },
-            duration: 0.6,
-            y: 30,
-            opacity: 0,
-            delay: idx * 0.1,
-            ease: 'power2.out'
-        });
+
+    if (!query) {
+      searchMeta.textContent = 'Показаны все курсы.';
+      return;
+    }
+
+    searchMeta.textContent = matched > 0
+      ? 'Найдено курсов: ' + matched
+      : 'Совпадений не найдено. Попробуйте другой запрос.';
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+
+    if (!name || !email || !message) {
+      formStatus.textContent = 'Заполните все поля формы.';
+      return;
+    }
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) {
+      formStatus.textContent = 'Введите корректный email.';
+      return;
+    }
+
+    formStatus.textContent = 'Сообщение успешно отправлено. Мы свяжемся с вами в ближайшее время.';
+    contactForm.reset();
+  }
+
+  function setupMenu() {
+    menuToggle.addEventListener('click', function () {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
     });
-});
+
+    mainNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  function init() {
+    if (slides.length > 0) {
+      showSlide(0);
+      resetSliderTimer();
+      nextButton.addEventListener('click', function () {
+        nextSlide();
+        resetSliderTimer();
+      });
+      prevButton.addEventListener('click', function () {
+        prevSlide();
+        resetSliderTimer();
+      });
+    }
+
+    if (window.SmoothScroll) {
+      new SmoothScroll('.main-nav a[href*="#"]', {
+        speed: 700,
+        speedAsDuration: true,
+        offset: 68,
+        updateURL: false
+      });
+    }
+
+    if (window.AOS) {
+      AOS.init({
+        duration: 650,
+        once: true,
+        easing: 'ease-out-cubic'
+      });
+    }
+
+    searchInput.addEventListener('input', filterCourses);
+    contactForm.addEventListener('submit', handleFormSubmit);
+    setupMenu();
+  }
+
+  init();
+})();
