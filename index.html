@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTELLECT Education Center - Образовательный центр</title>
+    <meta name="description" content="Современный образовательный центр INTELLECT. Курсы программирования и IT обучение.">
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'ui-sans-serif', 'system-ui'],
+                    },
+                    colors: {
+                        primary: '#FFCC00',
+                        secondary: '#00B2FF',
+                        accent: '#FF6B6B'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP для анимаций -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Alpine.js для интерактивности -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Swiper.js для карусель -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* hero gradient with custom blue tone */
+        #hero {
+            background: linear-gradient(135deg, #006699 0%, #004466 100%);
+        }
+    </style>
+</head>
+<body class="bg-white font-sans" x-data="app()">
+    <!-- Навигация -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md" x-data="{ mobileMenuOpen: false }">
+        <div class="relative container mx-auto px-4 py-4 flex items-center">
+            <!-- logo left -->
+            <div class="absolute left-4 text-2xl font-bold text-primary">INTELLECT</div>
+            
+            <!-- Desktop Menu centered -->
+            <div class="hidden md:flex gap-8 mx-auto">
+                <div class="relative" x-data="{ open:false }" @click.away="open=false">
+                    <a href="#courses" @click.prevent="open = !open" class="text-gray-800 hover:text-primary transition" x-text="t('nav.courses')"></a>
+                    <div x-show="open" x-transition @mouseover="open=true" @mouseleave="open=false" class="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2 z-50">
+                        <a href="#courses" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Python</a>
+                        <a href="#courses" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Web Development</a>
+                        <a href="#courses" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">UI/UX Design</a>
+                    </div>
+                </div>
+                <div class="relative" x-data="{ openAbout:false }" @click.away="openAbout=false">
+                    <a href="#about" @click.prevent="openAbout = !openAbout" class="text-gray-800 hover:text-primary transition" x-text="t('nav.about')"></a>
+                    <div x-show="openAbout" x-transition @mouseover="openAbout=true" @mouseleave="openAbout=false" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">
+                        <a href="#teachers" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Наши преподаватели</a>
+                        <a href="#achievements" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Наши достижения</a>
+                        <a href="#students" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Наши ученики</a>
+                    </div>
+                </div>
+                <a href="#reviews" class="text-gray-800 hover:text-primary transition" x-text="t('nav.reviews')"></a>
+                <a href="#contact" class="text-gray-800 hover:text-primary transition" x-text="t('nav.contact')"></a>
+            </div>
+            
+            <!-- Language Selector right -->
+            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex gap-2 items-center text-gray-800 text-lg">
+                <button @click="switchLanguage('ru')" :class="{'font-bold text-primary': currentLanguage === 'ru'}" class="transition">Руский</button>
+                <span>/</span>
+                <button @click="switchLanguage('tg')" :class="{'font-bold text-primary': currentLanguage === 'tg'}" class="transition">Точики</button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden absolute right-4 top-12">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <!-- Mobile Menu -->
+            <div x-show="mobileMenuOpen" class="absolute top-full left-0 right-0 bg-white shadow-md md:hidden" x-data="{ coursesOpen:false, aboutOpen:false }">
+                <div>
+                    <button @click="coursesOpen = !coursesOpen" class="w-full text-left px-4 py-2 flex justify-between items-center hover:bg-gray-100">
+                        Курсы
+                        <svg :class="{'transform rotate-180': coursesOpen}" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+                    </button>
+                    <div x-show="coursesOpen" class="pl-6">
+                        <a href="#courses" class="block px-4 py-2 hover:bg-gray-100">Python</a>
+                        <a href="#courses" class="block px-4 py-2 hover:bg-gray-100">Web Development</a>
+                        <a href="#courses" class="block px-4 py-2 hover:bg-gray-100">UI/UX Design</a>
+                    </div>
+                </div>
+                <div>
+                    <button @click="aboutOpen = !aboutOpen" class="w-full text-left px-4 py-2 flex justify-between items-center hover:bg-gray-100">
+                        О нас
+                        <svg :class="{'transform rotate-180': aboutOpen}" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+                    </button>
+                    <div x-show="aboutOpen" class="pl-6">
+                        <a href="#teachers" class="block px-4 py-2 hover:bg-gray-100">Наши преподаватели</a>
+                        <a href="#achievements" class="block px-4 py-2 hover:bg-gray-100">Наши достижения</a>
+                        <a href="#students" class="block px-4 py-2 hover:bg-gray-100">Наши ученики</a>
+                    </div>
+                </div>
+                <a href="#reviews" class="block px-4 py-2 hover:bg-gray-100" x-text="t('nav.reviews')"></a>
+                <a href="#contact" class="block px-4 py-2 hover:bg-gray-100" x-text="t('nav.contact')"></a>
+                <!-- Mobile language selector -->
+                <div class="border-t mt-2 pt-2 px-4 flex justify-center gap-2 text-gray-800 text-lg">
+                    <button @click="switchLanguage('ru')" :class="{'font-bold text-primary': currentLanguage === 'ru'}" class="transition">Руский</button>
+                    <span>/</span>
+                    <button @click="switchLanguage('tg')" :class="{'font-bold text-primary': currentLanguage === 'tg'}" class="transition">Точики</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (static, Blockskit style) -->
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-br from-primary to-secondary text-white py-32">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- text block -->
+                <div class="space-y-6">
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight" x-text="t('hero.title')"></h1>
+                    <p class="text-xl max-w-3xl" x-text="t('hero.desc')"></p>
+                    <button @click="openModal('contactModal')" class="mt-4 inline-block bg-accent text-white px-10 py-4 rounded-full font-bold hover:opacity-90 transition" x-text="t('hero.cta')"></button>
+                </div>
+                <!-- image block -->
+                <div class="relative">
+                    <img src="auditory1.jpg" alt="Classroom" class="w-full rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center w-16 h-16 bg-primary bg-opacity-20 rounded-full mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1M12 4a4 4 0 014 4v1H8V8a4 4 0 014-4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mt-2 font-semibold text-xl" x-text="t('features.teach')"></h3>
+                    <p class="text-gray-600 mt-2" x-text="t('features.teachDesc')"></p>
+                </div>
+                <div class="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center w-16 h-16 bg-secondary bg-opacity-20 rounded-full mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mt-2 font-semibold text-xl" x-text="t('features.methods')"></h3>
+                    <p class="text-gray-600 mt-2" x-text="t('features.methodsDesc')"></p>
+                </div>
+                <div class="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center w-16 h-16 bg-accent bg-opacity-20 rounded-full mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.1046 0 2-.8954 2-2s-.8954-2-2-2-2 .8954-2 2 .8954 2 2 2zm0 8c-1.1046 0-2 .8954-2 2s.8954 2 2 2 2-.8954 2-2-.8954-2-2-2zm8-6v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2h12a2 2 0 012 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mt-2 font-semibold text-xl" x-text="t('features.prices')"></h3>
+                    <p class="text-gray-600 mt-2" x-text="t('features.pricesDesc')"></p>
+                </div>
+                <div class="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center w-16 h-16 bg-primary bg-opacity-20 rounded-full mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13a7 7 0 0114 0v5a2 2 0 01-2 2h-2v-7h-8v7H7a2 2 0 01-2-2v-5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mt-2 font-semibold text-xl" x-text="t('features.support')"></h3>
+                    <p class="text-gray-600 mt-2" x-text="t('features.supportDesc')"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16" x-text="t('courses.heading')"></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                
+                <!-- additional program cards -->
+                <div class="bg-gray-100 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-bold mb-4 text-primary" x-text="t('courses.cluster4.title')"></h3>
+                    <p class="text-gray-700 mb-4" x-text="t('courses.cluster4.desc')"></p>
+                    <ul class="text-gray-600 mb-6 list-disc list-inside">
+                        <li x-text="t('courses.cluster4.duration')"></li>
+                        <li x-text="t('courses.cluster4.price')"></li>
+                        <li x-text="t('courses.cluster4.instructor')"></li>
+                        <li x-text="t('courses.cluster4.skills')"></li>
+                    </ul>
+                    <button @click="openModal('contactModal')" class="w-full bg-primary text-white py-3 rounded-full hover:bg-yellow-500 transition">Записаться</button>
+                </div>
+                <div class="bg-gray-100 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-bold mb-4 text-secondary" x-text="t('courses.cluster5.title')"></h3>
+                    <p class="text-gray-700 mb-4" x-text="t('courses.cluster5.desc')"></p>
+                    <ul class="text-gray-600 mb-6 list-disc list-inside">
+                        <li x-text="t('courses.cluster5.duration')"></li>
+                        <li x-text="t('courses.cluster5.price')"></li>
+                        <li x-text="t('courses.cluster5.instructor')"></li>
+                        <li x-text="t('courses.cluster5.skills')"></li>
+                    </ul>
+                    <button @click="openModal('contactModal')" class="w-full bg-secondary text-white py-3 rounded-full hover:bg-blue-500 transition">Записаться</button>
+                </div>
+                <div class="bg-gray-100 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-bold mb-4 text-accent" x-text="t('courses.olympiad.title')"></h3>
+                    <p class="text-gray-700 mb-4" x-text="t('courses.olympiad.desc')"></p>
+                    <ul class="text-gray-600 mb-6 list-disc list-inside">
+                        <li x-text="t('courses.olympiad.duration')"></li>
+                        <li x-text="t('courses.olympiad.price')"></li>
+                        <li x-text="t('courses.olympiad.instructor')"></li>
+                        <li x-text="t('courses.olympiad.skills')"></li>
+                    </ul>
+                    <button @click="openModal('contactModal')" class="w-full bg-accent text-white py-3 rounded-full hover:bg-red-500 transition">Записаться</button>
+                </div>
+                <div class="bg-gray-100 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-bold mb-4 text-primary" x-text="t('courses.meddeep.title')"></h3>
+                    <p class="text-gray-700 mb-4" x-text="t('courses.meddeep.desc')"></p>
+                    <ul class="text-gray-600 mb-6 list-disc list-inside">
+                        <li x-text="t('courses.meddeep.duration')"></li>
+                        <li x-text="t('courses.meddeep.price')"></li>
+                        <li x-text="t('courses.meddeep.instructor')"></li>
+                        <li x-text="t('courses.meddeep.skills')"></li>
+                    </ul>
+                    <button @click="openModal('contactModal')" class="w-full bg-primary text-white py-3 rounded-full hover:bg-yellow-500 transition">Записаться</button>
+                </div>
+                <div class="bg-gray-100 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-bold mb-4 text-secondary" x-text="t('courses.english.title')"></h3>
+                    <p class="text-gray-700 mb-4" x-text="t('courses.english.desc')"></p>
+                    <ul class="text-gray-600 mb-6 list-disc list-inside">
+                        <li x-text="t('courses.english.duration')"></li>
+                        <li x-text="t('courses.english.price')"></li>
+                        <li x-text="t('courses.english.instructor')"></li>
+                        <li x-text="t('courses.english.skills')"></li>
+                    </ul>
+                    <button @click="openModal('contactModal')" class="w-full bg-secondary text-white py-3 rounded-full hover:bg-blue-500 transition">Записаться</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12" x-text="t('about.heading')"></h2>
+            
+            <!-- Teachers -->
+            <div id="teachers" class="mb-16">
+                <h3 class="text-2xl font-semibold mb-6" x-text="t('about.teachers')"></h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <img src="https://via.placeholder.com/150" alt="Алексей Иванов" class="mx-auto rounded-full mb-4">
+                        <p class="font-semibold">Алексей Иванов</p>
+                        <p class="text-gray-600">Python-разработчик с 10-летним опытом.</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://via.placeholder.com/150" alt="Марина Петрова" class="mx-auto rounded-full mb-4">
+                        <p class="font-semibold">Марина Петрова</p>
+                        <p class="text-gray-600">Frontend-инженер, специализация HTML/CSS/JS.</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://via.placeholder.com/150" alt="Светлана Козлова" class="mx-auto rounded-full mb-4">
+                        <p class="font-semibold">Светлана Козлова</p>
+                        <p class="text-gray-600">UI/UX дизайнер с портфолио крупных проектов.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Achievements -->
+            <div id="achievements" class="mb-16">
+                <h3 class="text-2xl font-semibold mb-6" x-text="t('about.achievements')"></h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="text-4xl font-bold text-primary">100%</div>
+                        <p class="mt-1 text-sm">поступление в вузы (5 лет)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="text-4xl font-bold text-secondary">TOP‑32</div>
+                        <p class="mt-1 text-sm">НЦТ 2024/2025</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="text-4xl font-bold text-accent">95%</div>
+                        <p class="mt-1 text-sm">сдали на 180+ баллов</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="text-4xl font-bold text-primary">5000+</div>
+                        <p class="mt-1 text-sm">учеников подготовлено</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students -->
+            <div id="students" class="mb-16">
+                <h3 class="text-2xl font-semibold mb-6" x-text="t('about.students')"></h3>
+                <p class="text-gray-600">За годы работы сотни ребят завершили курсы и достигли успеха в сфере IT. Вот несколько историй успеха:</p>
+                <ul class="list-disc list-inside text-gray-600 mt-4">
+                    <li>Андрей — разработал своё первое приложение на Python.</li>
+                    <li>Лена — устроилась в веб‑студию сразу после курса.</li>
+                    <li>Игорь — начал фрилансить и зарабатывает стабильный доход.</li>
+                </ul>
+            </div>
+            
+            <!-- Address -->
+            <div id="address">
+                <h3 class="text-2xl font-semibold mb-6" x-text="t('about.address')"></h3>
+                <p class="text-gray-600 mb-4" x-text="t('about.addressText')"></p>
+                <div id="map" class="w-full h-80 rounded-lg shadow-lg"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Отзывы студентов</h2>
+            <div class="swiper reviewSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide bg-white rounded-lg shadow-lg p-6">
+                        <p class="text-gray-600 mb-4">"Отличный курс! Преподаватели очень опытные и хорошо объясняют материал."</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full"></div>
+                            <div>
+                                <p class="font-bold">Иван Петров</p>
+                                <p class="text-sm text-gray-500">Студент курса Python</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide bg-white rounded-lg shadow-lg p-6">
+                        <p class="text-gray-600 mb-4">"Очень доволен результатами. Начал заниматься с нуля, теперь могу создавать веб-сайты."</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-10 h-10 bg-purple-600 rounded-full"></div>
+                            <div>
+                                <p class="font-bold">Мария Сидорова</p>
+                                <p class="text-sm text-gray-500">Студент курса Web Dev</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" x-text="t('contact.heading')"></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-gray-600 mb-4" x-text="t('contact.addressText')"></p>
+                    <p class="text-gray-600 mb-4">Телефон: +992 (37) 123-45-67</p>
+                    <p class="text-gray-600 mb-4">Email: info@intellect.tj</p>
+                    <div id="map" class="w-full h-80 rounded-lg shadow-lg"></div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <form @submit.prevent="submitForm">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.name')"></label>
+                            <input type="text" x-model="form.name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.phone')"></label>
+                            <input type="tel" x-model="form.phone" @input="validatePhone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.email')"></label>
+                            <input type="email" x-model="form.email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.message')"></label>
+                            <textarea x-model="form.message" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" x-text="t('contact.form.submit')"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold" x-text="t('hero.modalTitle')"></h3>
+                <button @click="closeModal('contactModal')" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <form @submit.prevent="submitForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.name')"></label>
+                    <input type="text" x-model="form.name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.phone')"></label>
+                    <input type="tel" x-model="form.phone" @input="validatePhone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" required>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2" x-text="t('contact.form.email')"></label>
+                    <input type="email" x-model="form.email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-600" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" x-text="t('contact.form.submit')"></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2026 INTELLECT Education Center. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
