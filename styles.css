@@ -74,14 +74,14 @@ section {
 }
 
 .site-header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(19, 74, 109, 0.12);
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  backdrop-filter: none;
   transform: translateY(-100%);
   animation: nav-drop 0.5s ease forwards;
 }
@@ -103,10 +103,20 @@ section {
 .brand {
   text-decoration: none;
   color: var(--brand-700);
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.brand-logo {
+  width: 68px;
+  height: 68px;
+  display: block;
+  border-radius: 10px;
 }
 
 .main-nav {
@@ -117,10 +127,11 @@ section {
 
 .main-nav a {
   text-decoration: none;
-  color: #234158;
+  color: #f2f8ff;
   font-weight: 500;
   position: relative;
   transition: color 0.2s ease;
+  text-shadow: 0 1px 8px rgba(4, 18, 29, 0.45);
 }
 
 .main-nav a::after {
@@ -136,7 +147,7 @@ section {
 
 .main-nav a:hover,
 .main-nav a:focus-visible {
-  color: var(--brand-700);
+  color: #ffffff;
 }
 
 .main-nav a:hover::after,
@@ -155,7 +166,7 @@ section {
 }
 
 .hero {
-  margin-top: 74px;
+  margin-top: 0;
   padding: 0;
 }
 
@@ -432,6 +443,82 @@ section {
 .result-card h3 {
   color: var(--ink-900);
   margin-bottom: 0.55rem;
+}
+
+.teacher-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  margin-bottom: 0.85rem;
+  border: 1px solid #d8e7f1;
+  background: #eaf3f9;
+}
+
+.graduate-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.graduate-card {
+  background: linear-gradient(180deg, #2fa6dd 0%, #118bc8 100%);
+  border-color: rgba(125, 196, 234, 0.52);
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem 0.9rem 1.1rem;
+}
+
+.graduate-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.7rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.graduate-score,
+.graduate-year {
+  font-size: 1.14rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.graduate-score small,
+.graduate-year small {
+  display: block;
+  margin-top: 0.26rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.graduate-photo {
+  width: min(240px, 100%);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 0.72rem;
+  border-radius: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 25px rgba(5, 48, 74, 0.33);
+}
+
+.graduate-card h3 {
+  color: #ffffff;
+  font-size: 1.24rem;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5rem;
+}
+
+.graduate-card p {
+  margin: 0 auto;
+  width: min(270px, 100%);
+  background: rgba(255, 255, 255, 0.9);
+  color: #11364c;
+  border-radius: 12px;
+  padding: 0.58rem 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.28;
 }
 
 .course-card.match {
@@ -788,8 +875,8 @@ mark {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
-    background: #fff;
-    border-bottom: 1px solid #dceaf4;
+    background: rgba(8, 24, 36, 0.94);
+    border-bottom: 1px solid rgba(163, 200, 225, 0.2);
     padding: 0.9rem 4%;
   }
 
@@ -820,3 +907,11 @@ mark {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .brand-logo {
+    width: 54px;
+    height: 54px;
+  }
+}
+

@@ -11,6 +11,7 @@
   const formStatus = document.getElementById('formStatus');
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');
+  const brandLink = document.querySelector('.brand');
   const metricCounters = Array.from(document.querySelectorAll('[data-counter]'));
 
   let currentSlide = 0;
@@ -126,6 +127,19 @@
     });
   }
 
+  function setupBrandScrollTop() {
+    if (!brandLink) {
+      return;
+    }
+
+    brandLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      mainNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   function animateCounter(el) {
     const target = Number(el.dataset.count || 0);
     const divisor = Number(el.dataset.divisor || 1);
@@ -206,6 +220,7 @@
     searchInput.addEventListener('input', filterCourses);
     contactForm.addEventListener('submit', handleFormSubmit);
     setupMenu();
+    setupBrandScrollTop();
     setupMetrics();
   }
 

@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Intellect logo</title>
+  <desc id="desc">Education icon with graduate and waves</desc>
+
+  <path d="M31 128a97 97 0 0 1 194 0" fill="none" stroke="#1f7cad" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="128" cy="129" r="34" fill="none" stroke="#1f7cad" stroke-width="11"/>
+
+  <path d="M85 84l43-19 43 19-43 19z" fill="#1f7cad"/>
+  <circle cx="128" cy="108" r="17" fill="none"/>
+
+  <path d="M98 167c7-11 16-17 30-17s23 6 30 17" fill="none" stroke="#1f7cad" stroke-width="11" stroke-linecap="round"/>
+
+  <path d="M22 163c36 0 36 16 71 16s35-16 70-16 35 16 71 16" fill="none" stroke="#1f7cad" stroke-width="10" stroke-linecap="round"/>
+  <path d="M22 183c36 0 36 16 71 16s35-16 70-16 35 16 71 16" fill="none" stroke="#1f7cad" stroke-width="10" stroke-linecap="round"/>
+  <path d="M22 203c36 0 36 16 71 16s35-16 70-16 35 16 71 16" fill="none" stroke="#1f7cad" stroke-width="10" stroke-linecap="round"/>
+</svg>

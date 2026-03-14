@@ -1,0 +1,17 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Нозим Ахмедов</title>
+  <desc id="desc">Портрет преподавателя в аудитории</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1b5f8a"/>
+      <stop offset="1" stop-color="#6eb8df"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect x="80" y="70" width="640" height="460" rx="24" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="400" cy="230" r="88" fill="#f0c49b"/>
+  <path d="M302 235c8-72 42-117 98-117s91 45 99 117c-20-28-43-42-69-42-20 0-38 8-53 24-12-13-24-19-38-19-13 0-26 5-37 14z" fill="#1a3040"/>
+  <rect x="290" y="318" width="220" height="185" rx="28" fill="#103247"/>
+  <path d="M340 342h120v20H340zm0 38h120v20H340zm0 38h120v20H340z" fill="#2f5877"/>
+  <rect x="334" y="470" width="132" height="22" rx="11" fill="#1f7cad"/>
+</svg>
