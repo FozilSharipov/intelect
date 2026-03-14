@@ -102,7 +102,7 @@ section {
 
 .brand {
   text-decoration: none;
-  color: var(--brand-700);
+  color: #ffffff;
   font-family: "Montserrat", sans-serif;
   font-size: 1.3rem;
   font-weight: 800;
@@ -110,6 +110,7 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
 }
 
 .brand-logo {
